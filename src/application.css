@@ -18,7 +18,7 @@
 
 /* Splash Screen (Keep for future use) */
 .splash-title {
-    -fx-font-size: 64px;
+    -fx-font-size: 25px;
     -fx-font-weight: bold;
     -fx-text-fill: linear-gradient(to right, #6366f1, #8b5cf6, #ec4899);
     -fx-effect: dropshadow(gaussian, rgba(99, 102, 241, 0.6), 20, 0, 0, 4);

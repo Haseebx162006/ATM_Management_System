@@ -36,34 +36,34 @@ public class TransactionHistoryController {
     private TableColumn<Transaction, String> descriptionColumn;
     @FXML
     private Button backButton;
-    
+
     private AuthService authService;
     private TransactionService transactionService;
-    
+
     @FXML
     public void initialize() {
         authService = AuthService.getInstance();
         transactionService = new TransactionService();
-        
+
         if (!authService.isLoggedIn()) {
             loadDashboard();
             return;
         }
-        
+
         setupTable();
         loadTransactions();
     }
-    
+
     private void setupTable() {
         dateColumn.setCellValueFactory(cellData -> {
             Transaction t = cellData.getValue();
             if (t != null && t.getTimestamp() != null) {
                 return new javafx.beans.property.SimpleStringProperty(
-                    t.getTimestamp().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+                        t.getTimestamp().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
             }
             return new javafx.beans.property.SimpleStringProperty("");
         });
-        
+
         typeColumn.setCellValueFactory(cellData -> {
             Transaction t = cellData.getValue();
             if (t != null && t.getType() != null) {
@@ -71,17 +71,18 @@ public class TransactionHistoryController {
             }
             return new javafx.beans.property.SimpleStringProperty("");
         });
-        
+
         amountColumn.setCellValueFactory(cellData -> {
             Transaction t = cellData.getValue();
             if (t != null) {
-                String sign = t.getType() == Transaction.TransactionType.DEPOSIT ? "+" : "-";
+                double amount = t.getAmount();
+                String sign = amount >= 0 ? "+" : "";
                 return new javafx.beans.property.SimpleStringProperty(
-                    sign + "$" + String.format("%.2f", t.getAmount()));
+                        sign + "$" + String.format("%.2f", amount));
             }
             return new javafx.beans.property.SimpleStringProperty("");
         });
-        
+
         targetColumn.setCellValueFactory(cellData -> {
             Transaction t = cellData.getValue();
             if (t != null) {
@@ -90,17 +91,17 @@ public class TransactionHistoryController {
             }
             return new javafx.beans.property.SimpleStringProperty("-");
         });
-        
+
         descriptionColumn.setCellValueFactory(cellData -> {
             Transaction t = cellData.getValue();
             if (t != null) {
                 return new javafx.beans.property.SimpleStringProperty(
-                    t.getDescription() != null ? t.getDescription() : "");
+                        t.getDescription() != null ? t.getDescription() : "");
             }
             return new javafx.beans.property.SimpleStringProperty("");
         });
     }
-    
+
     private void loadTransactions() {
         if (authService.getCurrentAccount() != null) {
             String accountNumber = authService.getCurrentAccount().getAccountNumber();
@@ -111,12 +112,12 @@ public class TransactionHistoryController {
             }
         }
     }
-    
+
     @FXML
     private void handleBack() {
         loadDashboard();
     }
-    
+
     private void loadDashboard() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/Dashboard.fxml"));
@@ -128,4 +129,3 @@ public class TransactionHistoryController {
         }
     }
 }
-

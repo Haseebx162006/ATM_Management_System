@@ -13,100 +13,119 @@ import java.util.List;
  */
 public class AccountService {
     private List<Account> accounts;
-    
+
     /**
      * Constructor that loads accounts from file.
      */
     public AccountService() {
         loadAccounts();
     }
-    
+
     /**
      * Loads accounts from file storage.
      */
     private void loadAccounts() {
         accounts = FileHandler.readAccounts();
     }
-    
+
     /**
      * Saves accounts to file storage.
      */
     private void saveAccounts() {
         FileHandler.writeAccounts(accounts);
     }
-    
+
+    /**
+     * Finds an account by number from the in-memory list.
+     *
+     * @param accountNumber The account number to search for
+     * @return Account object if found, null otherwise
+     */
+    private Account findAccountByNumber(String accountNumber) {
+        if (accountNumber == null || accountNumber.trim().isEmpty()) {
+            return null;
+        }
+        return accounts.stream()
+                .filter(acc -> acc.getAccountNumber().equals(accountNumber))
+                .findFirst()
+                .orElse(null);
+    }
+
     /**
      * Creates a new account.
-     * 
+     *
      * @param name The account holder's name
-     * @param pin The PIN for the account (will be hashed)
+     * @param pin  The PIN for the account (will be hashed)
      * @return The newly created Account object, or null if creation fails
      */
     public Account createAccount(String name, String pin) {
         if (name == null || name.trim().isEmpty() || pin == null || pin.length() < 4) {
             return null;
         }
-        
+
+        loadAccounts(); // Refresh before checking for uniqueness and adding
+
         String accountNumber = SecurityUtils.generateAccountNumber();
         // Ensure account number is unique
-        while (getAccountByNumber(accountNumber) != null) {
+        while (findAccountByNumber(accountNumber) != null) {
             accountNumber = SecurityUtils.generateAccountNumber();
         }
-        
+
         String hashedPin = SecurityUtils.hashPin(pin);
         Account account = new Account(accountNumber, name.trim(), hashedPin, 0.0, LocalDateTime.now());
-        
+
         accounts.add(account);
         saveAccounts();
-        
+
         return account;
     }
-    
+
     /**
-     * Retrieves an account by account number.
-     * 
+     * Retrieves an account by account number, refreshing from storage.
+     *
      * @param accountNumber The account number to search for
      * @return Account object if found, null otherwise
      */
     public Account getAccountByNumber(String accountNumber) {
-        loadAccounts(); // Refresh from file
-        return accounts.stream()
-                .filter(acc -> acc.getAccountNumber().equals(accountNumber))
-                .findFirst()
-                .orElse(null);
+        loadAccounts(); // Always refresh from file for external reads
+        return findAccountByNumber(accountNumber);
     }
-    
+
     /**
      * Updates an account's PIN.
-     * 
+     *
      * @param accountNumber The account number
-     * @param newPin The new PIN (will be hashed)
+     * @param newPin        The new PIN (will be hashed)
      * @return true if update successful, false otherwise
      */
     public boolean updatePin(String accountNumber, String newPin) {
         if (newPin == null || newPin.length() < 4) {
             return false;
         }
-        
-        Account account = getAccountByNumber(accountNumber);
+
+        loadAccounts(); // Refresh before update
+
+        Account account = findAccountByNumber(accountNumber);
         if (account != null) {
             account.setHashedPin(SecurityUtils.hashPin(newPin));
             saveAccounts();
             return true;
         }
-        
+
         return false;
     }
-    
+
     /**
      * Updates account balance.
-     * 
+     *
      * @param accountNumber The account number
-     * @param newBalance The new balance
+     * @param newBalance    The new balance
      * @return true if update successful, false otherwise
      */
     public boolean updateBalance(String accountNumber, double newBalance) {
-        Account account = getAccountByNumber(accountNumber);
+        loadAccounts(); // Refresh before update
+
+        Account account = findAccountByNumber(accountNumber);
         if (account != null) {
             account.setBalance(newBalance);
             saveAccounts();
@@ -114,20 +133,22 @@ public class AccountService {
         }
         return false;
     }
-    
+
     /**
      * Deposits money into an account.
-     * 
+     *
      * @param accountNumber The account number
-     * @param amount The amount to deposit
+     * @param amount        The amount to deposit
      * @return true if deposit successful, false otherwise
      */
     public boolean deposit(String accountNumber, double amount) {
         if (amount <= 0) {
             return false;
         }
-        
-        Account account = getAccountByNumber(accountNumber);
+
+        loadAccounts(); // Refresh before update
+
+        Account account = findAccountByNumber(accountNumber);
         if (account != null) {
             account.setBalance(account.getBalance() + amount);
             saveAccounts();
@@ -135,20 +156,22 @@ public class AccountService {
         }
         return false;
     }
-    
+
     /**
      * Withdraws money from an account.
-     * 
+     *
      * @param accountNumber The account number
-     * @param amount The amount to withdraw
+     * @param amount        The amount to withdraw
      * @return true if withdrawal successful, false otherwise
      */
     public boolean withdraw(String accountNumber, double amount) {
         if (amount <= 0) {
             return false;
         }
-        
-        Account account = getAccountByNumber(accountNumber);
+
+        loadAccounts(); // Refresh before update
+
+        Account account = findAccountByNumber(accountNumber);
         if (account != null && account.getBalance() >= amount) {
             account.setBalance(account.getBalance() - amount);
             saveAccounts();
@@ -156,36 +179,38 @@ public class AccountService {
         }
         return false;
     }
-    
+
     /**
      * Transfers money from one account to another.
-     * 
+     *
      * @param fromAccountNumber The source account number
-     * @param toAccountNumber The destination account number
-     * @param amount The amount to transfer
+     * @param toAccountNumber   The destination account number
+     * @param amount            The amount to transfer
      * @return true if transfer successful, false otherwise
      */
     public boolean transfer(String fromAccountNumber, String toAccountNumber, double amount) {
         if (amount <= 0) {
             return false;
         }
-        
-        Account fromAccount = getAccountByNumber(fromAccountNumber);
-        Account toAccount = getAccountByNumber(toAccountNumber);
-        
+
+        loadAccounts(); // Load fresh data once at the start of the operation
+
+        Account fromAccount = findAccountByNumber(fromAccountNumber);
+        Account toAccount = findAccountByNumber(toAccountNumber);
+
         if (fromAccount != null && toAccount != null && fromAccount.getBalance() >= amount) {
             fromAccount.setBalance(fromAccount.getBalance() - amount);
             toAccount.setBalance(toAccount.getBalance() + amount);
-            saveAccounts();
+            saveAccounts(); // This will save the modified 'this.accounts' list
             return true;
         }
-        
+
         return false;
     }
-    
+
     /**
      * Gets all accounts (for admin purposes if needed).
-     * 
+     *
      * @return List of all accounts
      */
     public List<Account> getAllAccounts() {
@@ -193,4 +218,3 @@ public class AccountService {
         return accounts;
     }
 }
-

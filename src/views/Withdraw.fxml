@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane fx:id="rootPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.WithdrawController">
+   <children>
+      <VBox alignment="CENTER" spacing="25.0" AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="80.0" styleClass="card-background">
+         <padding>
+            <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
+         </padding>
+         <children>
+            <Label text="Withdraw Money" styleClass="screen-title" />
+            <Label fx:id="currentBalanceLabel" styleClass="info-label" />
+            <TextField fx:id="amountField" promptText="Enter Amount" styleClass="input-field" />
+            <Button fx:id="withdrawButton" onAction="#handleWithdraw" text="Withdraw" styleClass="primary-button" />
+            <Button fx:id="backButton" onAction="#handleBack" text="Back to Dashboard" styleClass="secondary-button" />
+            <Label fx:id="messageLabel" styleClass="success-label" textAlignment="CENTER" wrapText="true" />
+            <Label fx:id="errorLabel" styleClass="error-label" textAlignment="CENTER" wrapText="true" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

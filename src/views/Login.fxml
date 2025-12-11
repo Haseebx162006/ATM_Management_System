@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane fx:id="rootPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LoginController">
+   <children>
+      <VBox alignment="CENTER" spacing="25.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="80.0" styleClass="card-background">
+         <padding>
+            <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+         </padding>
+         <children>
+            <Label text="Welcome Back" styleClass="screen-title" />
+            <VBox spacing="20.0">
+               <children>
+                  <TextField fx:id="accountNumberField" promptText="Account Number (10 digits)" styleClass="input-field" />
+                  <PasswordField fx:id="pinField" promptText="PIN (min 4 digits)" styleClass="input-field" />
+               </children>
+            </VBox>
+            <Button fx:id="loginButton" onAction="#handleLogin" text="Login" styleClass="primary-button" />
+            <Button fx:id="createAccountButton" onAction="#handleCreateAccount" text="Create New Account" styleClass="secondary-button" />
+            <Button fx:id="forgotPinButton" onAction="#handleForgotPin" text="Forgot PIN?" styleClass="link-button" />
+            <Label fx:id="errorLabel" styleClass="error-label" visible="false" textAlignment="CENTER" wrapText="true" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

@@ -1,0 +1,195 @@
+/* Dark Theme Overrides - Enhanced Beautiful Design */
+
+.root {
+    -fx-background-color: linear-gradient(to bottom, #1a202c, #2d3748);
+}
+
+/* Card/Container Background */
+.card-background {
+    -fx-background-color: #2d3748;
+    -fx-background-radius: 15px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 15, 0, 0, 5);
+}
+
+/* Titles */
+.splash-title {
+    -fx-text-fill: linear-gradient(to right, #9f7aea 0%, #d69e2e 100%);
+    -fx-effect: dropshadow(gaussian, rgba(159, 122, 234, 0.4), 10, 0, 0, 2);
+}
+
+.splash-subtitle {
+    -fx-text-fill: #cbd5e0;
+}
+
+.screen-title {
+    -fx-text-fill: linear-gradient(to right, #9f7aea, #d69e2e);
+    -fx-effect: dropshadow(gaussian, rgba(159, 122, 234, 0.3), 5, 0, 0, 1);
+}
+
+.section-title {
+    -fx-text-fill: #9f7aea;
+}
+
+/* Labels */
+.welcome-label {
+    -fx-text-fill: #f7fafc;
+}
+
+.balance-label {
+    -fx-text-fill: linear-gradient(to right, #68d391, #48bb78);
+    -fx-background-color: linear-gradient(to right, rgba(104, 211, 145, 0.15), rgba(72, 187, 120, 0.15));
+}
+
+.info-label {
+    -fx-text-fill: #cbd5e0;
+}
+
+.error-label {
+    -fx-text-fill: #fc8181;
+    -fx-background-color: rgba(252, 129, 129, 0.15);
+    -fx-border-color: #fc8181;
+}
+
+.success-label {
+    -fx-text-fill: #68d391;
+    -fx-background-color: rgba(104, 211, 145, 0.15);
+    -fx-border-color: #68d391;
+    -fx-max-width: 400px;
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+    -fx-font-weight: 600;
+}
+
+/* Input Fields */
+.input-field {
+    -fx-background-color: #2d3748;
+    -fx-text-fill: #f7fafc;
+    -fx-border-color: #4a5568;
+}
+
+.input-field:focused {
+    -fx-border-color: linear-gradient(to right, #9f7aea, #d69e2e);
+    -fx-background-color: #374151;
+    -fx-effect: dropshadow(three-pass-box, rgba(159, 122, 234, 0.4), 8, 0, 0, 3);
+}
+
+.input-field:hover {
+    -fx-border-color: #718096;
+}
+
+/* Buttons */
+.primary-button {
+    -fx-background-color: linear-gradient(to right, #9f7aea 0%, #d69e2e 100%);
+    -fx-effect: dropshadow(three-pass-box, rgba(159, 122, 234, 0.5), 10, 0, 0, 4);
+}
+
+.primary-button:hover {
+    -fx-background-color: linear-gradient(to right, #805ad5 0%, #c05621 100%);
+    -fx-effect: dropshadow(three-pass-box, rgba(159, 122, 234, 0.6), 15, 0, 0, 6);
+}
+
+.primary-button:pressed {
+    -fx-background-color: linear-gradient(to right, #6b46c1 0%, #9c4221 100%);
+}
+
+.secondary-button {
+    -fx-background-color: #2d3748;
+    -fx-text-fill: #f7fafc;
+    -fx-border-color: #4a5568;
+}
+
+.secondary-button:hover {
+    -fx-background-color: #374151;
+    -fx-border-color: #718096;
+}
+
+.link-button {
+    -fx-text-fill: #9f7aea;
+}
+
+.link-button:hover {
+    -fx-text-fill: #d69e2e;
+}
+
+.action-button {
+    -fx-background-color: linear-gradient(135deg, #9f7aea 0%, #d69e2e 100%);
+    -fx-effect: dropshadow(three-pass-box, rgba(159, 122, 234, 0.5), 12, 0, 0, 5);
+}
+
+.action-button:hover {
+    -fx-background-color: linear-gradient(135deg, #805ad5 0%, #c05621 100%);
+    -fx-effect: dropshadow(three-pass-box, rgba(159, 122, 234, 0.6), 18, 0, 0, 7);
+}
+
+.action-button:pressed {
+    -fx-background-color: linear-gradient(135deg, #6b46c1 0%, #9c4221 100%);
+}
+
+/* Table View */
+.table-view {
+    -fx-background-color: #2d3748;
+    -fx-border-color: #4a5568;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: linear-gradient(to bottom, #9f7aea, #d69e2e);
+}
+
+.table-view .column-header {
+    -fx-text-fill: white;
+}
+
+.table-row-cell {
+    -fx-background-color: #2d3748;
+    -fx-text-fill: #f7fafc;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #374151;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: linear-gradient(to right, rgba(159, 122, 234, 0.2), rgba(214, 158, 46, 0.2));
+}
+
+.table-row-cell:hover {
+    -fx-background-color: linear-gradient(to right, rgba(159, 122, 234, 0.15), rgba(214, 158, 46, 0.15));
+}
+
+/* Checkbox */
+.check-box {
+    -fx-text-fill: #f7fafc;
+}
+
+.check-box .box {
+    -fx-background-color: #2d3748;
+    -fx-border-color: #4a5568;
+}
+
+.check-box:selected .mark {
+    -fx-background-color: linear-gradient(to right, #9f7aea, #d69e2e);
+}
+
+.check-box:selected .box {
+    -fx-background-color: linear-gradient(to right, rgba(159, 122, 234, 0.15), rgba(214, 158, 46, 0.15));
+    -fx-border-color: linear-gradient(to right, #9f7aea, #d69e2e);
+}
+
+/* ScrollPane */
+.scroll-pane .scroll-bar {
+    -fx-background-color: #2d3748;
+}
+
+.scroll-pane .scroll-bar .thumb {
+    -fx-background-color: linear-gradient(to bottom, #9f7aea, #d69e2e);
+}
+
+/* AnchorPane */
+.anchor-pane {
+    -fx-background-color: linear-gradient(to bottom, #1a202c, #2d3748);
+}
+
+/* Labels */
+.label {
+    -fx-text-fill: #f7fafc;
+}

@@ -1,0 +1,4 @@
+# Transactions Storage File
+# Format: transactionId|accountNumber|targetAccountNumber|type|amount|timestamp|description
+# This file is automatically managed by the ATM Management System
+

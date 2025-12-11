@@ -1,0 +1,4 @@
+# Accounts Storage File
+# Format: accountNumber|name|hashedPin|balance|creationDate
+# This file is automatically managed by the ATM Management System
+

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane fx:id="rootPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SettingsController">
+   <children>
+      <VBox alignment="CENTER" spacing="25.0" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="60.0" styleClass="card-background">
+         <padding>
+            <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
+         </padding>
+         <children>
+            <Label text="Settings" styleClass="screen-title" />
+            <Label text="Change PIN" styleClass="section-title" />
+            <VBox spacing="18.0">
+               <children>
+                  <PasswordField fx:id="currentPinField" promptText="Current PIN" styleClass="input-field" />
+                  <PasswordField fx:id="newPinField" promptText="New PIN (min 4 digits)" styleClass="input-field" />
+                  <PasswordField fx:id="confirmPinField" promptText="Confirm New PIN" styleClass="input-field" />
+               </children>
+            </VBox>
+            <Button fx:id="changePinButton" onAction="#handleChangePin" text="Change PIN" styleClass="primary-button" />
+            <Label text="Theme" styleClass="section-title" />
+            <CheckBox fx:id="darkModeCheckBox" text="Dark Mode (Always Enabled)" onAction="#handleThemeToggle" />
+            <Button fx:id="backButton" onAction="#handleBack" text="Back to Dashboard" styleClass="secondary-button" />
+            <Label fx:id="messageLabel" styleClass="success-label" textAlignment="CENTER" wrapText="true" />
+            <Label fx:id="errorLabel" styleClass="error-label" textAlignment="CENTER" wrapText="true" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
